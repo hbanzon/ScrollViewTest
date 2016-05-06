@@ -21,7 +21,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHo-BG-R2d">
                                 <rect key="frame" x="0.0" y="28" width="600" height="274"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJc-h4-ksd">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJc-h4-ksd" customClass="UIView">
                                         <rect key="frame" x="180" y="69" width="231" height="132"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3">
@@ -74,6 +74,8 @@
                     <connections>
                         <outlet property="DoorName" destination="3" id="name-outlet-3"/>
                         <outlet property="HeaderContainer" destination="vHo-BG-R2d" id="name-outlet-vHo-BG-R2d"/>
+                        <outlet property="SiteName" destination="PXe-3d-SYd" id="name-outlet-PXe-3d-SYd"/>
+                        <outlet property="DoorHeaderView" destination="SJc-h4-ksd" id="name-outlet-SJc-h4-ksd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

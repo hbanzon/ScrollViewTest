@@ -20,7 +20,6 @@ namespace ScrollViewTest
 		{
 			base.ViewDidLoad();
 			GenerateScrollingHeader();
-			System.Diagnostics.Debug.WriteLine("hello");
 		}
 
 		UIColor GetColor(string name)
@@ -40,13 +39,40 @@ namespace ScrollViewTest
 			return UIColor.DarkGray;
 		}
 
+
+		UIView BuildDoorHeader(string color, string name, int index)
+		{
+			nfloat containerHeight = this.HeaderContainer.Frame.Height;
+			nfloat containerWidth = this.HeaderContainer.Frame.Width;
+
+			var doorHeaderX = (index * containerWidth) + (this.DoorHeaderView.Frame.X / 2);
+			var doorHeaderY = this.DoorHeaderView.Frame.Y;
+			var doorHeader = new UIView(
+				new CGRect(doorHeaderX, doorHeaderY, 
+				           this.DoorHeaderView.Frame.Width, this.DoorHeaderView.Frame.Height));
+			doorHeader.BackgroundColor = GetColor(colors[index]);
+
+			/*
+			var labelX = (index * containerWidth);
+			var labelY = this.DoorName.Frame.Y;
+			var label1 = new UILabel(
+				new CGRect(labelX, 0, containerWidth, containerHeight));
+			label1.Text = colors[index];
+			label1.TextAlignment = UITextAlignment.Center;
+			*/
+
+			//doorHeaderView.AddSubview(label1);
+			return doorHeader;
+		}
+
 		void GenerateScrollingHeader()
 		{
 			nfloat containerHeight = this.HeaderContainer.Frame.Height;
 			nfloat containerWidth = this.HeaderContainer.Frame.Width;
 
 			var scrollView = new UIScrollView(new CGRect(
-				this.HeaderContainer.Frame.X, this.HeaderContainer.Frame.Y, containerWidth, containerHeight));
+				this.HeaderContainer.Frame.X, this.HeaderContainer.Frame.Y, 
+				containerWidth, containerHeight));
 			scrollView.ContentSize = new CGSize(scrollView.Frame.Width * colors.Count, scrollView.Frame.Height);
 			scrollView.PagingEnabled = true;
 			scrollView.ScrollEnabled = true;
@@ -54,22 +80,17 @@ namespace ScrollViewTest
 			scrollView.ScrollsToTop = false;
 			scrollView.ShowsHorizontalScrollIndicator = false;
 
-			var colorLabels = new UILabel[colors.Count];
+			//var colorLabels = new UILabel[colors.Count];
+			var doorHeaders = new UIView[colors.Count];
 			for (int i = 0; i < colors.Count; i++)
 			{
-				var labelX = (i * containerWidth);
-				var labelY = this.DoorName.Frame.Y;
-				var colorLabel = new UILabel(
-					new CGRect(labelX, 0, containerWidth, containerHeight));
-				colorLabel.Text = colors[i];
-				colorLabel.TextColor = UIColor.White;
-				colorLabel.TextAlignment = UITextAlignment.Center;
-				colorLabel.BackgroundColor = GetColor(colors[i]);
-				colorLabels[i] = colorLabel;
+				var doorHeader = BuildDoorHeader(colors[i], "Door " + i, i);
+				doorHeaders[i] = doorHeader;
 			}
 
 			Action updatedPage = () =>
 			{
+				System.Diagnostics.Debug.WriteLine("scrolled");
 				var alertController = UIAlertController.Create("Swiped", "You Swiped", UIAlertControllerStyle.Alert);
 				alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (action) => Console.WriteLine("OK Clicked.")));
 				PresentViewController(alertController, true, null);
@@ -107,7 +128,7 @@ namespace ScrollViewTest
 				}
 			};
 
-			scrollView.AddSubviews(colorLabels);
+			scrollView.AddSubviews(doorHeaders);
 
 			while (HeaderContainer.Subviews.Length > 0)
 			{
