@@ -45,23 +45,30 @@ namespace ScrollViewTest
 			nfloat containerHeight = this.HeaderContainer.Frame.Height;
 			nfloat containerWidth = this.HeaderContainer.Frame.Width;
 
-			var doorHeaderX = (index * containerWidth) + (this.DoorHeaderView.Frame.X / 2);
+			var doorHeaderX = (index * containerWidth)  + (this.DoorHeaderView.Frame.X / 2);
 			var doorHeaderY = this.DoorHeaderView.Frame.Y;
 			var doorHeader = new UIView(
 				new CGRect(doorHeaderX, doorHeaderY, 
 				           this.DoorHeaderView.Frame.Width, this.DoorHeaderView.Frame.Height));
 			doorHeader.BackgroundColor = GetColor(colors[index]);
 
-			/*
-			var labelX = (index * containerWidth);
+
+			var labelX = this.DoorName.Frame.X;
 			var labelY = this.DoorName.Frame.Y;
 			var label1 = new UILabel(
-				new CGRect(labelX, 0, containerWidth, containerHeight));
+				new CGRect(labelX, this.DoorName.Frame.Y, this.DoorName.Frame.Width, this.DoorName.Frame.Height));
 			label1.Text = colors[index];
-			label1.TextAlignment = UITextAlignment.Center;
-			*/
+			label1.TextColor = UIColor.White;
 
-			//doorHeaderView.AddSubview(label1);
+
+			var label2 = new UILabel(
+				new CGRect(this.SiteName.Frame.X, this.SiteName.Frame.Y, this.SiteName.Frame.Width, this.SiteName.Frame.Height)
+			);
+			label2.Text = name;
+			label2.TextColor = UIColor.White;
+
+			doorHeader.AddSubview(label1);
+			doorHeader.AddSubview(label2);
 			return doorHeader;
 		}
 
